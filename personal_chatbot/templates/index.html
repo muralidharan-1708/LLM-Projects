@@ -43,11 +43,6 @@
                 </button>
             </div>
         </div>
-        
-        <!-- Hidden div to display backend response -->
-        {% if msg %}
-        <div class="bot-response" style="display: none;">{{ msg }}</div>
-        {% endif %}
     </div>
 
     <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
