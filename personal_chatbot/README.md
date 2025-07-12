@@ -1,6 +1,6 @@
 # 🤖 Personal AI Chatbot
 
-A modern, responsive web-based chatbot powered by Google's Gemini AI model. Built with Flask backend and vanilla JavaScript frontend, featuring a sleek chat interface with real-time messaging, typing indicators, and persistent chat history.
+A modern, responsive web-based chatbot by AI. Built with Flask backend and vanilla JavaScript frontend, featuring a sleek chat interface with real-time messaging, typing indicators, and persistent chat history.
 
 ![Chatbot Interface](https://img.shields.io/badge/Interface-Modern%20Chat%20UI-blue)
 ![Python](https://img.shields.io/badge/Python-3.7+-green)
@@ -62,7 +62,7 @@ personal_chatbot/
 
 ### 1. Clone the Repository
 ```bash
-git clone <repository-url>
+git clone https://github.com/muralidharan-1708/LLM-Projects.git
 cd personal_chatbot
 ```
 
