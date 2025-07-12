@@ -141,39 +141,30 @@ function sendMessage() {
     showLoading();
     
     // Submit to backend
-    const formData = new FormData();
-    formData.append('input', userMessage);
-    
-    fetch('/', {
+    fetch('/chat', {
         method: 'POST',
-        body: formData
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ input: userMessage })
     })
-    .then(response => response.text())
-    .then(html => {
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
         removeLoading();
         
-        // Parse the response to get the bot message
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
-        
-        // Look for the response in the parsed HTML
-        const responseElement = doc.querySelector('.bot-response');
-        let botResponse;
-        
-        if (responseElement) {
-            botResponse = responseElement.textContent.trim();
+        if (data.error) {
+            addMessageToChat('bot', `Error: ${data.error}`);
+            chatHistory[chatHistory.length - 1].bot = `Error: ${data.error}`;
         } else {
-            // Fallback: look for any text content that might be the response
-            const bodyText = doc.body.textContent;
-            if (bodyText && bodyText.trim() && !bodyText.includes('Personal AI Assistant')) {
-                botResponse = bodyText.trim();
-            } else {
-                botResponse = 'I received your message but encountered an issue with the response format.';
-            }
+            addMessageToChat('bot', data.response);
+            chatHistory[chatHistory.length - 1].bot = data.response;
         }
         
-        addMessageToChat('bot', botResponse);
-        chatHistory[chatHistory.length - 1].bot = botResponse;
         saveChatHistory();
     })
     .catch(error => {
